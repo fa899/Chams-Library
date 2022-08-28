@@ -20,7 +20,7 @@ local Settings = {
 	RainbowChamColor = true,
 	RainbowOutlineColor = true,
 	EnableChams = true,
-	TeamCheck = true,
+	TeamCheck = false,
 	Speed = 5, -- 1 for default
 	SelfCheck = true, -- Check if the player is you
 	SelfCheckDebug = true, -- Set this to true if u wan-t to debug if the player is u
@@ -87,11 +87,6 @@ function cham(plr)
 
 		return nil -- do not run rest of the code :D
 	end
-	if Settings.TeamCheck == true then
-           if plr.Team == game.Players.LocalPlayer.Team then
-              return nil -- do not run rest of the code :D
-	   end
-	end
 	local Highlight = Instance.new("Highlight", plr.Character)
 	Highlight.FillColor = Settings.ChamColor
 	Highlight.FillTransparency = Settings.ChamTransparency
@@ -106,6 +101,11 @@ function cham(plr)
 			Highlight.OutlineTransparency = Settings.OutlineTransparency
 			Highlight.DepthMode = Settings.DepthMode
 			Highlight.Enabled = Settings.EnableChams
+			if Settings.TeamCheck == true then
+           		if plr.Team == game.Players.LocalPlayer.Team then
+              		Highlight.Enabled = false
+	   			end
+			end
 		end)
 	end)
 	plr.CharacterRemoving:Connect(function(m)
@@ -131,6 +131,11 @@ function cham(plr)
 				Highlight.OutlineTransparency = Settings.OutlineTransparency
 				Highlight.DepthMode = Settings.DepthMode
 				Highlight.Enabled = Settings.EnableChams
+				if Settings.TeamCheck == true then
+           			if plr.Team == game.Players.LocalPlayer.Team then
+              			Highlight.Enabled = false
+		   			end
+				end
 			end)
 		end)
 		plr.CharacterRemoving:Connect(function(m)
