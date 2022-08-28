@@ -20,6 +20,7 @@ local Settings = {
 	RainbowChamColor = true,
 	RainbowOutlineColor = true,
 	EnableChams = true,
+	TeamCheck = true,
 	Speed = 5, -- 1 for default
 	SelfCheck = true, -- Check if the player is you
 	SelfCheckDebug = true, -- Set this to true if u wan-t to debug if the player is u
@@ -86,7 +87,11 @@ function cham(plr)
 
 		return nil -- do not run rest of the code :D
 	end
-
+	if Settings.TeamCheck == true then
+           if plr.Team == game.Players.LocalPlayer.Team then
+              return nil -- do not run rest of the code :D
+	   end
+	end
 	local Highlight = Instance.new("Highlight", plr.Character)
 	Highlight.FillColor = Settings.ChamColor
 	Highlight.FillTransparency = Settings.ChamTransparency
@@ -110,6 +115,8 @@ function cham(plr)
 		end
 	end)
 	plr.CharacterAdded:Connect(function(m)
+		m:WaitForChild("Humanoid")
+		m:WaitForChild("Head")
 		local Highlight = Instance.new("Highlight", plr.Character)
 		Highlight.FillColor = Settings.ChamColor
 		Highlight.FillTransparency = Settings.ChamTransparency
